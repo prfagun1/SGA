@@ -1,0 +1,103 @@
+﻿@model SGA.Models.ApplicationRest
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group">
+    <label asp-for="Name" class="control-label"></label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Description" class="control-label"></label>
+    <textarea asp-for="Description" class="form-control multiLineDescription"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+<div class="row">
+    <div class="form-group col-md-8">
+        <label asp-for="ApplicationId" class="control-label"></label>
+        <select asp-for="ApplicationId" class="form-control" asp-items="ViewBag.ApplicationId">
+            <option disabled selected></option>
+        </select>
+        <span asp-validation-for="ApplicationId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="RestType" class="control-label"></label>
+        <select asp-for="RestType" class="form-control" asp-items="ViewBag.RestType">
+            <option disabled selected></option>
+        </select>
+        <span asp-validation-for="RestType" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="ApplicationTypeId" class="control-label"></label>
+    <select asp-for="ApplicationTypeId" class="form-control" asp-items="ViewBag.ApplicationTypeId">
+        <option disabled selected></option>
+    </select>
+    <span asp-validation-for="ApplicationTypeId" class="text-danger"></span>
+</div>
+<div id="TypeSelected">
+    * Ao invés de informar usuario na chamada Json, coloque a palavra UsuarioDesativadoSistema, ela será substituida pelo usuário que será desativado.
+    <br /> &nbsp;
+</div>
+
+<div class="form-group">
+    <label asp-for="URL" class="control-label"></label>
+    <input asp-for="URL" class="form-control" />
+    <span asp-validation-for="URL" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="API" class="control-label"></label>
+    <input asp-for="API" class="form-control" />
+    <span asp-validation-for="API" class="text-danger"></span>
+    *API é o endereço que complementa a URL para acessar o serviço
+</div>
+<div class="form-group">
+    <label asp-for="Header" class="control-label"></label>
+    <textarea asp-for="Header" class="form-control multiLineDescription"></textarea>
+    <span asp-validation-for="Header" class="text-danger"></span>
+    *Informe o o nome do header separado por vírgula do seu valor <br />
+    *Informe um header por linha
+</div>
+<div class="form-group">
+    <label asp-for="Json" class="control-label"></label>
+    <textarea asp-for="Json" class="form-control multiLine"></textarea>
+    <span asp-validation-for="Json" class="text-danger"></span>
+</div>
+<div class="row">
+    <div class="form-group col-md-5">
+        <label asp-for="Username" class="control-label"></label>
+        <input asp-for="Username" value="@ViewBag.Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-5">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" value="@ViewBag.Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="MD5" class="control-label"></label>
+        <select asp-for="MD5" class="form-control" asp-items="ViewBag.MD5">
+            <option disabled selected></option>
+        </select>
+        <span asp-validation-for="MD5" class="text-danger"></span>
+
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Enable" class="control-label"></label>
+    <select asp-for="Enable" class="form-control col-md-2" asp-items="ViewBag.EnableSelect">
+    </select>
+    <span asp-validation-for="Enable" class="text-danger"></span>
+</div>
+
+<div class="form-group" align="right">
+
+    <br />
+    <a asp-action="Index" class="btn btn-success">
+        <i class="fa fa-backward"></i> Voltar
+    </a>
+    &nbsp;&nbsp;
+    <button type="submit" class="btn btn-success">
+        <i class="fa fa-save"></i> Salvar
+    </button>
+
+</div>

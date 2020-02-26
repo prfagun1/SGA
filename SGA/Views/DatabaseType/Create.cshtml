@@ -1,0 +1,24 @@
+﻿@model SGA.Models.DatabaseSGA
+
+@{
+    ViewData["Title"] = "Cadastro de tipos de bancos de dados";
+}
+
+<h2>Cadastro de tipos de banco de dados</h2>
+<br />
+
+<div class="row">
+    <div class="col-md-12 form">
+        <form asp-action="Create">
+
+            <partial name="_Form" />
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

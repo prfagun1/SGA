@@ -1,0 +1,94 @@
+﻿@model IEnumerable<SGA.Models.DatabaseType>
+
+@{
+    ViewBag.Title = "Listagem de tipos de bancos de dados";
+}
+
+<h1>Listagem de tipos de bancos de dados</h1>
+
+<br />
+
+<div class="row">
+    <div class="form-group col-md-6">
+        <div class="input-group">
+            <input type="text" id="Name" class="form-control table-filter-box" placeholder="Digite para pesquisar">
+            <div class="input-group-append">
+                <span class="input-group-text bg-success"><i class="text-light fa fa-search"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-success">
+        <span class="fa fa-plus"></span>
+        Cadastrar novo tipo de banco de dados
+    </a>
+</p>
+
+<div class="text-danger font-weight-bold">
+    @Html.Raw(ViewBag.RegistroApagado)
+</div>
+
+
+
+<table class="table" id="reportTable">
+    <thead class="table-report-header">
+        <tr>
+            @{
+                String[] columns = new string[] { "Nome", "Ativo" };
+                int columnIndex = 0;
+                foreach (string column in columns)
+                {
+                    <th class="cabecalhos-pesquisa">
+                        <div class="order-table-div">
+                            <div class="">
+                                @column
+                            </div>
+                            <div class="order-table-icons">
+                                <a id="orderBy" class="fa fa-angle-up  bg-transparent pointer" title="Ordenar crescente" onclick="sortTable('reportTable',@columnIndex, 0)"></a>
+                                <a id="orderBy" class="fa fa-angle-down   bg-transparent pointer" title="Ordenar decrescente" onclick="sortTable('reportTable',@columnIndex, 1)"></a>
+                            </div>
+                        </div>
+                    </th>
+
+                    columnIndex++;
+                }
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr onmouseover="ChangeLineColorAdd(this)" onmouseout="ChangeLineColorRemove(this)" class="tr-filter">
+                <td class="cabecalhos-pesquisa">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @{
+                        String enable = "Sim";
+                        if (item.Enable != EnumSGA.Status.Enabled) { enable = "Não"; }
+                    }
+                    @enable
+                </td>
+                <td class="cabecalhos-pesquisa">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" data-item-id="@item.Id" data-item-description="@item.Name" data-toggle="modal" data-target="#confirm-delete" data-parent="DatabaseType">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<partial name="~/Views/Shared/_ModalDelete.cshtml" />
+
+@section scripts{
+    <script src="~/js/table-filter.js"></script>
+    <script src="~/js/modal.js"></script>
+}
+

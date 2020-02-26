@@ -1,0 +1,42 @@
+﻿@model SGA.Models.Ldap
+
+<div class="row">
+    <div class="form-group col-md-7">
+        <label asp-for="Domain" class="control-label"></label>
+        <input asp-for="Domain" class="form-control" />
+        <span asp-validation-for="Domain" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group  col-md-7">
+        <label asp-for="BindUser" class="control-label"></label>
+        <input asp-for="BindUser" value="@ViewBag.BindUser" class="form-control" />
+        <span asp-validation-for="BindUser" class="text-danger"></span>
+    </div>
+    <div class="form-group  col-md-5">
+        <label asp-for="BindPassword" class="control-label"></label>
+        <input asp-for="BindPassword" class="form-control" />
+        <span asp-validation-for="BindPassword" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="form-group">
+    <label asp-for="Enable" class="control-label"></label>
+    <select asp-for="Enable" class="form-control col-md-2" asp-items="ViewBag.EnableSelect">
+    </select>
+    <span asp-validation-for="Enable" class="text-danger"></span>
+</div>
+
+<br />
+
+<div class="form-group" align="right">
+
+    <button class="btn btn-success" asp-action="Details" asp-route-id="1">
+        <i class="fa fa-backward"></i> Voltar
+    </button>
+    &nbsp;&nbsp;
+    <button type="submit" class="btn btn-success">
+        <i class="fa fa-save"></i> Salvar
+    </button>
+</div>

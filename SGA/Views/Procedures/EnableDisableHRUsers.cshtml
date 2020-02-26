@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Habilita ou desabilita usuários de acordo com o status do metadados";
+}
+
+<h1>Habilita ou desabilita usuários de acordo com o status do metadados</h1>
+
+<br />
+<form asp-controller="Procedures" asp-action="EnableDisableHRUsers" method="get">
+
+
+    <div class="row">
+        <div class="col-md-8" align="left">
+            <button type="submit" value="DisableHRUsers" class="btn btn-success" id="button" name="button">
+                Executar
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<br />
+<br />
+
+<div class="status">
+    @ViewBag.Status
+</div>
+
+
+
+<table class="table">
+    <thead class="table-report-header">
+        <tr>
+
+            @{
+                String[] columns = new string[] { "Nome completo", "Usuário", "Setor", "Cargo", "CC", "Data Metadados", "Status", "Sistemas" };
+                foreach (string column in columns)
+                {
+                    <th class="cabecalhos-pesquisa">
+                        @column
+                    </th>
+                }
+            }
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.UserList)
+        {
+            <tr onmouseover="ChangeLineColorAdd(this)" onmouseout="ChangeLineColorRemove(this)">
+                <td class="cabecalhos-pesquisa">
+                    @item.FullName
+                </td>
+                <td class="cabecalhos-pesquisa">
+                    @item.Username
+                </td>
+                <td class="cabecalhos-pesquisa">
+                    @item.Department
+                </td>
+                <td class="cabecalhos-pesquisa">
+                    @item.JobRole
+                </td>
+                <td class="cabecalhos-pesquisa">
+                    @item.CC
+                </td>
+                <td class="cabecalhos-pesquisa">
+                    @item.MetadadosDate.ToShortDateString()
+                </td>
+                <td class="cabecalhos-pesquisa">
+                    @{
+                        String statusHR = "";
+                        switch (item.StatusRH)
+                        {
+                            case EnumSGA.UserHRStatusHR.Afastado:
+                                statusHR = "Afastado";
+                                break;
+                            case EnumSGA.UserHRStatusHR.Desligado:
+                                statusHR = "Desligado";
+                                break;
+                            case EnumSGA.UserHRStatusHR.Voltando:
+                                statusHR = "Voltando";
+                                break;
+                        }
+                    }
+                    @statusHR
+                </td>
+                <td class="cabecalhos-pesquisa">
+
+                    @foreach (var application in @item.UserHRApplication)
+                    {
+                        @application.Application.Name
+                        <br />
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/user-create-employee.js"></script>
+    <script src="~/js/table-lines.js" type="text/javascript"></script>
+}

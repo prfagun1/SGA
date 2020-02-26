@@ -1,0 +1,146 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common;
+@using X.PagedList;
+
+    <link rel="stylesheet" href="~/css/report.css" />
+
+@{
+    ViewBag.Title = "Listagem de permissões de usuários";
+}
+
+<h1>Listagem de grupos por aplicação</h1>
+
+<br />
+<form asp-controller="Reports" asp-action="ApplicationGroup" method="get">
+    <div asp-validation-summary="None" class="text-danger"></div>
+
+    <div class="row">
+
+
+        <div class="form-group col-md-5">
+            <div>
+                Aplicação
+            </div>
+            @Html.DropDownList("ApplicationId", null, "", htmlAttributes: new { @class = "form-control " })
+        </div>
+
+
+        <div class="form-group col-md-7">
+            <div>
+                Grupos
+            </div>
+            <input type="text" name="Group" value="@ViewBag.Group" class="form-control searchBoxSize">
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12" align="right">
+            <button type="submit" value="Pesquisar" class="btn btn-success">
+                <span class="fa fa-search"></span>
+                Pesquisar
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<br />
+
+<partial name="~/Views/Shared/_ModalDetails.cshtml" />
+
+<table class="table">
+    <thead class="table-report-header">
+        <tr>
+            @{
+                String[] columns = new string[] { "Aplicação", "Grupos", "Permissões" };
+                foreach (string column in columns)
+                {
+                    <th class="cabecalhos-pesquisa">
+                        @column
+                        <a href="@Url.Action("UserApplication", new {
+                                sortOrder = @column,
+                                ApplicationId = ViewBag.ApplicationId.SelectedValue,
+                                Groups = ViewBag.Groups,
+                                sortOrderOld = ViewBag.sortOrderOld
+                            })">
+                            <span class="fa fa-sort"></span>
+                        </a>
+                    </th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in ViewBag.GroupDetails)
+        {
+        <tr onmouseover="ChangeLineColorAdd(this)" onmouseout="ChangeLineColorRemove(this)">
+            <td class="cabecalhos-pesquisa">
+                <a class="detail-selected"
+                   data-toggle="modal"
+                   data-target="#modal-details"
+                   data-parent="UserApplication"
+                   onclick="SetModalApplicationDescription(`@item.Application.Name`, `@item.Application.Description`)">
+                    <span title="Clique no nome para mais detalhes">
+                        @item.Application.Name
+                    </span>
+                </a>
+            </td>
+            <td>
+                <a class="detail-selected"
+                   data-toggle="modal"
+                   data-target="#modal-details"
+                   data-parent="UserApplication"
+                   onclick="GetUserListFromGroup('@item.Name', @item.ApplicationId)">
+                    <span title="Clique no grupo para ver os usuários">
+                        @item.Name
+                    </span>
+                </a>
+            </td>
+            <td>
+                <a class="detail-selected"
+                   data-toggle="modal"
+                   data-target="#modal-details"
+                   data-parent="UserApplication"
+                   onclick="GetGroupPermission('@item.Name', @item.ApplicationId)">
+                    <span title="Clique no grupo para mais detalhes">
+                        Detalhes
+                    </span>
+                </a>
+                <br />
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<div>
+
+    @Html.PagedListPager((IPagedList)ViewBag.GroupDetails, page => Url.Action("GroupApplication", new
+    {
+        page = page,
+        CC = ViewBag.CC,
+        ApplicationId = ViewBag.ApplicationId.SelectedValue,
+        Groups = ViewBag.Groups,
+        sortOrderOld = ViewBag.sortOrderOld
+    }),
+
+    new PagedListRenderOptions
+        {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    UlElementClasses = new[] { "pagination  justify-content-center" }
+    })
+
+</div>
+
+
+
+@section scripts{
+    <script src="~/js/report.js" type="text/javascript"></script>
+    <script src="~/js/table-lines.js" type="text/javascript"></script>
+}

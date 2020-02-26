@@ -1,0 +1,23 @@
+﻿@model SGA.Models.ApplicationRest
+
+@{
+    ViewData["Title"] = "Edição de conexões REST";
+}
+
+<h2>Edição de conexões REST</h2>
+<br />
+
+<div class="row">
+    <div class="col-md-12 form">
+        <form asp-action="Edit">
+
+            <partial name="_Form" />
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/application-rest.js"></script>
+}

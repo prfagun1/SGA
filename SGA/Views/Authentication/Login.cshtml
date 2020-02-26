@@ -1,0 +1,70 @@
+﻿@model LoginViewModel;
+
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "";
+}
+
+<link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/login.css" />
+<link rel="stylesheet" href="~/css/default-color.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+<div class="row justify-content-center login-form">
+    <div class="login-form-div">
+        <div class="">
+            <h4 class="header">SGA - Sistema de gestão de acessos</h4>
+        </div>
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="login-form-btn">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-append ">
+                            <span class="input-group-text bg-success text-login-image"><i class="fa fa-user text-light"></i></span>
+                        </div>
+                        <input asp-for="Username" class="form-control" placeholder="Usuário" />
+                    </div>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-append ">
+                            <span class="input-group-text bg-success text-login-image"><i class="fa fa-key text-light"></i></span>
+                        </div>
+                        <input asp-for="Password" class="form-control" placeholder="Senha" />
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="RememberMe" />
+                        @Html.DisplayNameFor(model => model.RememberMe)
+                    </label>
+                </div>
+                <br />
+                <div class="form-group login-btn" align="right">
+
+                    <div class="col-md-12" align="right">
+                        <div class="btn btn-danger" id="IEMessage" title="Este sistema não é compatível com o Internet Explorer">
+                            Este sistema não é compatível com o Internet Explorer
+                        </div>
+                    </div>
+
+                    <input type="submit" id="Acessar" value="Acessar" class="btn btn-success" />
+                </div>
+            </div>
+
+            <footer>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/authentication.js"></script>
+

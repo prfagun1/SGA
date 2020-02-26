@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Desativação de usuário";
+}
+
+<h2>Desativação de usuário</h2>
+<br />
+
+
+<form asp-controller="Procedures" asp-action="EnableDisableUsersAction" method="post">
+    <div asp-validation-summary="None" class="text-danger"></div>
+
+
+    <div class="row">
+        <div class="form-group col-md-6 ">
+            <div>
+                Selecione o usuário
+            </div>
+            @Html.DropDownList("Username", null, "", htmlAttributes: new { @class = "form-control " })
+        </div>
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6" align="right">
+            <button type="submit" value="DisableUser" class="btn btn-success" id="button" name="button" title="Desabilita o usuário e remove as permissões">
+                Desativar permanentemente
+            </button>
+            <button type="submit" disabled="disabled" value="DisableUserTemporary" class="btn btn-success" id="button" name="button" title="Somente desabilita o usuário, não remove as permissões">
+                Desativar temporariamente
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<br />
+
+
+@ViewBag.Status
+
+@section Scripts {
+    <script src="~/js/procedures.js"></script>
+}
+

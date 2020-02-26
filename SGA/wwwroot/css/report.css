@@ -1,0 +1,31 @@
+﻿
+table {
+    font-size: 12px;
+}
+
+
+
+.modal .modal-box {
+    width: 700px;
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid;
+    margin: 0, 0, 0, 0;
+}
+
+.modal .modal-header {
+    background-color: #00995D;
+    border-radius: 1px 1px 0px 0px;
+    color: white;
+}
+
+
+
+.modal .close {
+    color: white;
+    font-weight: bold;
+}
+
+.modal-body {
+    line-height: 25px;
+}
+

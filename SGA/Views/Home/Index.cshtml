@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2 class="home-h1">Sistema de gestão de acessos</h2>
+<br />
+
+<section class="row">
+
+    @if (User.HasClaim(c => c.Type == "Manager"))
+    {
+        <div class="col-sm-6 col-lg-4 home-cards-padding">
+            <div class="card ">
+                <div class="card-header bg-success text-light">
+                    Alterar senha de funcionário
+                </div>
+                <div class="card-body home-cards">
+                    <p class="card-text">Clique abaixo para alterar a senha de um funcionário que pertence ao seu centro de custo</p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="/Procedures/ChangePassword" class="btn btn-success">
+                        Acessar &nbsp;
+                        <span class="fa fa-external-link" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 home-cards-padding">
+            <div class="card">
+                <div class="card-header bg-success text-light">
+                    Permissões de acesso de usuários
+                </div>
+                <div class="card-body home-cards">
+                    <p class="card-text">Clique abaixo para verificar as permissões de acesso dos seus funcionários</p>
+
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="/Report/ManagerUserPermission" class="btn btn-success">
+                        Acessar &nbsp;
+                        <span class="fa fa-external-link" />
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 home-cards-padding">
+            <div class="card">
+                <div class="card-header bg-success text-light">
+                    Perfis de acesso
+                </div>
+                <div class="card-body home-cards">
+                    <p class="card-text">Clique abaixo para listar os perfis de acessos dos sistemas</p>
+
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="/Report/UserApplication" class="btn btn-success">
+                        Acessar &nbsp;
+                        <span class="fa fa-external-link" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    </section>

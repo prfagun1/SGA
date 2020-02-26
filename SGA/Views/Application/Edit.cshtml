@@ -1,0 +1,24 @@
+﻿@model SGA.Models.Application
+
+@{
+    ViewData["Title"] = "Edição de aplicações";
+}
+
+<h2>Edição de aplicações</h2>
+<br />
+
+<div class="row">
+    <div class="col-md-12 form">
+        <form asp-action="Edit">
+
+            <partial name="_Form" />
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/application.js"></script>
+}
+

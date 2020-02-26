@@ -1,0 +1,23 @@
+﻿@model SGA.Models.Schedule
+
+@{
+    ViewData["Title"] = "Cadastro de agendamentos";
+}
+
+<h2>Cadastro de agendamentos</h2>
+<br />
+
+<div class="row">
+    <div class="col-md-12 form">
+        <form asp-action="Create">
+
+            <partial name="_Form" />
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

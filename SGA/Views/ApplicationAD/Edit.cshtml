@@ -1,0 +1,23 @@
+﻿@model SGA.Models.ApplicationAD
+
+@{
+    ViewData["Title"] = "Edição de grupos do AD";
+}
+
+<h2>Edição de grupos do AD</h2>
+<br />
+
+<div class="row">
+    <div class="col-md-12 form">
+        <form asp-action="Edit">
+
+            <partial name="_Form" />
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/application-ad.js"></script>
+}

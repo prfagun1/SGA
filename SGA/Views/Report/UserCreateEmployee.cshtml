@@ -1,0 +1,190 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common;
+@using X.PagedList;
+
+<link rel="stylesheet" href="~/css/report.css" />
+
+@{
+    ViewBag.Title = "Listagem de usuários criados";
+}
+
+<h1>Listagem de usuários criados</h1>
+
+<br />
+<form asp-controller="Reports" asp-action="UserCreateEmployee" method="get">
+    <div asp-validation-summary="None" class="text-danger"></div>
+
+    <div class="row">
+        <div class="form-group col-md-4">
+            <div>
+                Nome
+            </div>
+            <input type="text" name="FullName" value="@ViewBag.FullName" class="form-control searchBoxSize">
+        </div>
+
+        <div class="form-group col-md-4">
+            <div>
+                Setor
+            </div>
+            <input type="text" name="Department" value="@ViewBag.Department" class="form-control searchBoxSize">
+        </div>
+
+        <div class="form-group col-md-4">
+            <div>
+                Cargo
+            </div>
+            <input type="text" name="JobRole" value="@ViewBag.JobRole" class="form-control searchBoxSize">
+        </div>
+
+        <div class="form-group col-md-4">
+            <div>
+                Centro de Custo
+            </div>
+            <input type="text" name="CC" value="@ViewBag.CC" class="form-control searchBoxSize">
+        </div>
+
+        <div class="form-group col-md-2">
+            <div>
+                Usuário
+            </div>
+            <input type="text" name="Username" value="@ViewBag.Username" class="form-control searchBoxSize">
+        </div>
+
+        <div class="form-group col-md-2">
+            <div>
+                Crachá
+            </div>
+            <input type="text" name="EmployeeId" value="@ViewBag.EmployeeId" class="form-control searchBoxSize">
+        </div>
+
+
+
+
+
+
+        <div class="form-group col-md-2">
+            <div>
+                Data de admissão inicial
+            </div>
+            <input type="date" name="AdmissionDateStart" value="@ViewBag.AdmissionDateStart" class="form-control searchBoxSize">
+        </div>
+
+        <div class="form-group col-md-2">
+            <div>
+                Data de admissão final
+            </div>
+            <input type="date" name="AdmissionDateEnd" value="@ViewBag.AdmissionDateEnd" class="form-control searchBoxSize">
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12" align="right">
+            <button type="submit" value="Pesquisar" class="btn btn-success">
+                <span class="fa fa-search"></span>
+                Pesquisar
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<br />
+
+<div class="text-white bg-success"></div>
+
+<table class="table">
+    <thead class="table-report-header">
+        <tr>
+
+            @{
+                String[] columns = new string[] { "Nome completo", "Usuário", "Senha", "Crachá", "Setor", "Cargo", "Centro de custo", "Data de admissão"};
+                foreach (string column in columns)
+                {
+                    <th class="cabecalhos-pesquisa">
+                        @column
+                        <a href="@Url.Action("UserCreateEmployee", new {
+                                sortOrder = @column,
+                                FullName = ViewBag.FullName,
+                                Username = ViewBag.Username,
+                                EmployeeId = ViewBag.EmployeeId,
+                                JobRole = ViewBag.JobRole,
+                                Department = ViewBag.Department,
+                                CC = ViewBag.CC,
+                                AdmissionDateStart = ViewBag.AdmissionDateStart,
+                                AdmissionDateEnd = ViewBag.AdmissionDateEnd,
+                                sortOrderOld = ViewBag.sortOrderOld
+                            })">
+                            <span class="fa fa-sort"></span>
+                        </a>
+                    </th>
+                }
+            }
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.UserCreateEmployee)
+        {
+        <tr onmouseover="ChangeLineColorAdd(this)" onmouseout="ChangeLineColorRemove(this)">
+            <td class="cabecalhos-pesquisa">
+                @item.FullName
+            </td>
+            <td class="cabecalhos-pesquisa">
+                @item.Username
+            </td>
+            <td class="cabecalhos-pesquisa">
+                @item.Password
+            </td>
+            <td class="cabecalhos-pesquisa">
+                @item.EmployeeId
+            </td>
+            <td class="cabecalhos-pesquisa">
+                @item.Department
+            </td>
+            <td class="cabecalhos-pesquisa">
+                @item.JobRole
+            </td>
+            <td class="cabecalhos-pesquisa">
+                @item.CC
+            </td>
+            <td class="cabecalhos-pesquisa">
+                @item.AdmissionDate.ToShortDateString()
+            </td>
+        </tr>
+            }
+        </tbody>
+</table>
+
+
+<div>
+
+    @Html.PagedListPager((IPagedList)ViewBag.UserCreateEmployee, page => Url.Action("UserCreateEmployee", new
+    {
+        page = page,
+        FullName = ViewBag.FullName,
+        Username = ViewBag.Username,
+        EmployeeId = ViewBag.EmployeeId,
+        JobRole = ViewBag.JobRole,
+        Department = ViewBag.Department,
+        CC = ViewBag.CC,
+        AdmissionDateStart = ViewBag.AdmissionDateStart,
+        AdmissionDateEnd = ViewBag.AdmissionDateEnd,
+        sortOrderOld = ViewBag.sortOrderOld
+}),
+
+    new PagedListRenderOptions
+        {
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" },
+        UlElementClasses = new[] { "pagination  justify-content-center" }
+    })
+
+</div>
+
+
+
+@section scripts{
+    <script src="~/js/report.js" type="text/javascript"></script>
+    <script src="~/js/table-lines.js" type="text/javascript"></script>
+}

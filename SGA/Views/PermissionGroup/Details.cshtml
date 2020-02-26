@@ -1,0 +1,82 @@
+﻿@model SGA.Models.PermissionGroup
+
+@{
+    ViewData["Title"] = "Detalhes do grupo de permissão " + Model.Name;
+}
+
+<h2>Detalhes do grupo de permissão @Model.Name</h2>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Domain)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Domain) &nbsp;
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccessType)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                string accessType = "";
+                switch (Model.AccessType)
+                {
+                    case EnumSGA.AccessType.Administration:
+                        accessType = "Administração";
+                        break;
+                    case EnumSGA.AccessType.Reports:
+                        accessType = "Relatórios";
+                        break;
+                    case EnumSGA.AccessType.Logs:
+                        accessType = "Logs";
+                        break;
+
+                }
+            }
+            @accessType
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enable)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                String enable = "Ativo";
+                if (Model.Enable != EnumSGA.Status.Enabled) { enable = "Inativo"; }
+            }
+            @enable
+        </dd>
+    </dl>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ChangeDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ChangeDate)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-success">
+        <i class="fa fa-backward"></i> Voltar para lista
+    </a>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">
+        <i class="fa fa-edit"></i> Editar
+    </a>
+</div>

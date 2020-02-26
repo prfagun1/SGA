@@ -1,0 +1,149 @@
+﻿<nav class="navbar navbar-expand-sm navbar-custom">
+    <a href="/" class="navbar-brand text-nowrap">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCustom">
+        <i class="fa fa-bars fa-lg py-1 text-white"></i>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarCustom">
+
+
+        <ul class="navbar-nav">
+            @{
+                if (User.HasClaim(c => c.Type == "Administration"))
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Parâmetros
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-area="" asp-controller="Parameter" asp-action="Details" asp-route-id="1">Parâmetros de ambiente</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Ldap" asp-action="Details" asp-route-id="1">Parâmetros LDAP</a>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+
+        <ul class="navbar-nav">
+            @{
+                if (User.HasClaim(c => c.Type == "Administration"))
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cadastros
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-area="" asp-controller="Schedule" asp-action="Index">Agendamentos</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Environment" asp-action="Index">Ambiente</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-area="" asp-controller="Application" asp-action="Index">Aplicações</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="ApplicationAD" asp-action="Index">Conexões - Grupos AD</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="ApplicationRest" asp-action="Index">Conexões - Rest</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="ApplicationSQL" asp-action="Index">Conexões - SQL</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-area="" asp-controller="DatabaseSGA" asp-action="Index">Bancos de dados</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="DatabaseType" asp-action="Index">Bancos de dados - Tipos</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="ApplicationType" asp-action="Index">Tipos de conexões</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-area="" asp-controller="PermissionGroup" asp-action="Index">Permissões</a>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+
+        <ul class="navbar-nav">
+            @{
+                if (User.HasClaim(c => c.Type == "Administration"))
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Procedimentos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-area="" asp-controller="Procedures" asp-action="EnableDisableUsers">Desativar usuários</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Procedures" asp-action="ImportData">Importar dados</a>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+
+        <ul class="navbar-nav">
+            @{
+                if (User.HasClaim(c => c.Type == "HR") || User.HasClaim(c => c.Type == "Manager"))
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gestão de usuários
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                            @if (User.HasClaim(c => c.Type == "HR"))
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Procedures" asp-action="UserCreateEmployee">Criar usuários para novos colaboradores</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Procedures" asp-action="EnableDisableHRUsers">Desabilitar/Habilitar usuários afastados</a>
+                            }
+
+                            @if (User.HasClaim(c => c.Type == "Manager"))
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Procedures" asp-action="ChangePassword">Alterar senha de um usuário</a>
+                            }
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+
+
+        <ul class="navbar-nav">
+            @{
+                if (User.HasClaim(c => c.Type == "Report") || User.HasClaim(c => c.Type == "HR") || User.HasClaim(c => c.Type == "UserManagementRead") )
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Relatórios
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @if (User.HasClaim(c => c.Type == "UserManagementRead"))
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="UserCreateEmployee">Usuários criados</a>
+                            }
+                            <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="UserApplication">Usuários por aplicação</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="GroupApplication">Grupos por aplicação</a>
+                            @if (User.HasClaim(c => c.Type == "UserManagementRead"))
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="UserHR" asp-action="Index">Usuários desativados</a>
+                            }
+                            @if (User.HasClaim(c => c.Type == "Manager"))
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="ManagerUserPermission">Listagem de funcionários</a>
+                            }
+                            @if (User.HasClaim(c => c.Type == "Log"))
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Log" asp-action="Index">Logs de acesso</a>
+                            }
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+
+
+        @{
+            if (User.Identity.IsAuthenticated)
+            {
+
+                <span class="ml-auto navbar-text navbar-right text-nowrap">
+                    Usuário: @User.Identity.Name | @Html.ActionLink("Sair", "LogOff", "Authentication", null, new { Class = "action add text-white", title = "Fazer logof." })
+                </span>
+            }
+        }
+    </div>
+
+</nav>

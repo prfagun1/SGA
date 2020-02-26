@@ -1,0 +1,81 @@
+﻿@model SGA.Models.ApplicationSQL
+
+@{
+    ViewData["Title"] = "Detalhes da conexão SQL " + Model.Name;
+}
+
+    <h2>Detalhes da conexão SQL @Model.Name</h2>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description) &nbsp;
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Application)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Application.Name) &nbsp;
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SQL)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SQL) &nbsp;
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatabaseSGA)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatabaseSGA.DatabaseName) &nbsp;
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationType.Name) &nbsp;
+        </dd>
+        <dd class="col-sm-10">
+            @{
+                String enable = "Ativo";
+                if (Model.Enable != EnumSGA.Status.Enabled) { enable = "Inativo"; }
+            }
+            @enable
+        </dd>
+    </dl>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ChangeDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ChangeDate)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-success">
+        <i class="fa fa-backward"></i> Voltar para lista
+    </a>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">
+        <i class="fa fa-edit"></i> Editar
+    </a>
+</div>

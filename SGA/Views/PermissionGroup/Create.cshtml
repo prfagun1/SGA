@@ -1,0 +1,25 @@
+﻿@model SGA.Models.PermissionGroup
+
+@{
+    ViewData["Title"] = "Cadastro de grupos de permissão";
+}
+
+<h2>Cadastro de grupso de permissão</h2>
+<br />
+
+<div class="row">
+    <div class="col-md-12 form">
+        <form asp-action="Create">
+
+            <partial name="_Form" />
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/permission-group.js"></script>
+}
+
