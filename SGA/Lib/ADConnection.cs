@@ -22,7 +22,7 @@ namespace SGA.Lib
         }
 
         public void  CreateUserEmployee(UserCreateEmployee user) {
-            String ldapPath = "LDAP://OU=Usuarios Novos,DC=unimed-ners,DC=net";
+            String ldapPath = "LDAP://OU=Usuarios Novos,DC=xxx,DC=net";
             string ldapUsername = Cipher.Decrypt(_ldap.BindUser, _ldap.ChangeDate.ToString());
             string ldapPassword = Cipher.Decrypt(_ldap.BindPassword, _ldap.ChangeDate.ToString());
 
